@@ -10,7 +10,7 @@ Das Projekt orientiert sich an der Kaggle-Challenge
 und dient als praxisnahe Anwendung von Methoden aus dem Bereich
 Natural Language Processing, Machine Learning und Deep Learning.
 
---
+
 
 ## Projektziel
 
@@ -22,7 +22,7 @@ Ziel des Projektes ist es,
 
 Als zentrale Bewertungsmetrik wird der **F1-Score** verwendet, da er ein ausgewogenes Verhältnis zwischen Precision und Recall beitet und für unbalancierte KLassifikationsprobleme besonders geeignet ist. 
 
---
+
 
 ## Datensatz
 
@@ -34,7 +34,7 @@ Verwendete Dateien:
 
 Die Texte enthalten kurze, informelle Sprache, Hashtags, URLs, Mehrdeutigkeiten sowie metaphorische Ausdrücke, was die Klassifikation inhaltlich anspruchsvoll macht. 
 
---
+
 
 ## Projektstruktur
 
@@ -52,7 +52,7 @@ eds-ai-hs25/
 
 **Hinweis:** Vortrainierte Embedding und Transformer-Modelle sind aufgrund ihrer Grösse nicht im Repositotry enthalten. 
 
---
+
 
 ## Methodik & Projektphasen 
 
@@ -84,7 +84,7 @@ Das Bi-LSTM-Modell verbessert insbesondere die Erkennung kontextabhängiger Form
 - Einsatz ein Transformer-Modells als Stats-Of_........
 - FERTIG MACHEN WENN TAG 4 GEMACHT IST!!!!!!
 
----
+
 
 ## GloVe Embeddings
 
@@ -98,13 +98,13 @@ https://nlp.stanford.edu/projects/glove
 Ablagepfad:
 data/glove/glove.6B.100d.txt
 
---
+
 
 ## Fazit
 
 odINVJoi gjihj oihf ijh adf uz d  hwdg f
 
---
+
 
 ## Autorin 
 
