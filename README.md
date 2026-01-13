@@ -1,113 +1,51 @@
-# Natual Language Processing with Disater Tweets
-EDS – AI HS25 project
+# Natural Language Processing with Disaster Tweets (Kaggle)
 
-Dieses Projekt beschäftigt sich mit der automatischen Klassifikation von Tweets
-in Bezug auf reale Katastrophenereignisse. Ziel ist es, vorherzusagen, ob ein Tweet
-tatsächlich eine Katastrophe beschreibt oder nicht.
+**EDS – AI HS25 Project (HSLU)**  
+Autorin: **Annabelle McPherson**
 
-Das Projekt orientiert sich an der Kaggle-Challenge  
-**“Natural Language Processing with Disaster Tweets”**  
-und dient als praxisnahe Anwendung von Methoden aus dem Bereich
-Natural Language Processing, Machine Learning und Deep Learning.
+Dieses Projekt beschäftigt sich mit der automatischen Klassifikation von Tweets in Bezug auf reale Katastrophenereignisse. Ziel ist es, vorherzusagen, ob ein Tweet tatsächlich eine **reale Katastrophe** beschreibt (`target = 1`) oder ob katastrophenbezogene Begriffe **metaphorisch / im übertragenen Sinn** verwendet werden (`target = 0`).  
+Die Arbeit orientiert sich an der Kaggle-Challenge **“Natural Language Processing with Disaster Tweets”**. :contentReference[oaicite:1]{index=1}
 
+---
 
+## Problemstellung & Ziel
 
-## Projektziel
+Soziale Medien liefern in Krisensituationen Informationen in Echtzeit, gleichzeitig enthalten viele Tweets Wörter wie *fire*, *flood* oder *explode*, ohne dass ein reales Ereignis gemeint ist. Daher wird ein Modell entwickelt, das Tweets zuverlässig in **„Katastrophe“** vs. **„keine Katastrophe“** klassifiziert. :contentReference[oaicite:2]{index=2}
 
-Ziel des Projektes ist es, 
-- eine **solide und nachvollziehbare Baseline** zu entwickeln,
-- deren **Stärken und Schwächen systematisch zu analysieren**,
-- darauf aufbauend **klassische Deep-Learning-Modelle** einzusetzen,
-- und abschliessend einen **modernen Transformer-Ansatz** zu evaluieren.
+**Evaluationsmetrik: F1-Score (Klasse 1 = Katastrophe)**  
+Der F1-Score ist geeignet, weil **Precision und Recall gleichzeitig relevant** sind. In einem realen Einsatz sind insbesondere **False Negatives** kritisch, da echte Katastrophen übersehen würden. :contentReference[oaicite:3]{index=3}
 
-Als zentrale Bewertungsmetrik wird der **F1-Score** verwendet, da er ein ausgewogenes Verhältnis zwischen Precision und Recall beitet und für unbalancierte KLassifikationsprobleme besonders geeignet ist. 
-
-
+---
 
 ## Datensatz
 
-Der verwendete Datensatz stammt aus der Kaggle.Challenge und besteht aus Tweets, die manuell als *Katastrophe* oder *keine Katastrophe* gelabelt wurden. 
+Der Datensatz stammt aus Kaggle und besteht aus Tweets mit optionalen Zusatzfeldern (`keyword`, `location`) sowie dem Label `target`. Im Projekt liegt der Fokus primär auf dem Textfeld `text`. :contentReference[oaicite:4]{index=4}
 
-Verwendete Dateien:
-- 'train.csv'
-- 'test.csv'
+**Dateien:**
+- `train.csv`
+- `test.csv`
 
-Die Texte enthalten kurze, informelle Sprache, Hashtags, URLs, Mehrdeutigkeiten sowie metaphorische Ausdrücke, was die Klassifikation inhaltlich anspruchsvoll macht. 
+---
 
+## Vorgehen & Methoden (5 Modelle)
 
+Im Notebook werden fünf Ansätze implementiert und anhand des **F1-Scores für „Katastrophe“** verglichen. :contentReference[oaicite:5]{index=5}
 
-## Projektstruktur
+1. **Baseline:** TF-IDF + Logistic Regression  
+2. **Deep Learning:** Bi-LSTM mit vortrainierten **GloVe Embeddings** (frozen)  
+3. **LLM Zero-Shot (API):** direkte Klassifikation ohne Training (mit Caching)  
+4. **Embedding-basiert:** Sentence-Transformer **all-MiniLM-L6-v2** + Logistic Regression  
+5. **LLM Few-Shot (API):** Klassifikation mit wenigen gelabelten Beispielen im Prompt (mit Caching) :contentReference[oaicite:6]{index=6}
 
-eds-ai-hs25/
-│
-├── data/
-│ ├── train.csv
-│ ├── test.csv
-│ └── glove/
-│ └── glove.6B.100d.txt (nicht im Repository enthalten)
-│
-├── disaster_tweets_baseline.ipynb
-├── README.md
-└── .gitignore
+Zusätzlich wird eine **Fehleranalyse (FP/FN)** durchgeführt und diskutiert, inklusive Hinweis auf mögliche **Label Noise** im Datensatz. :contentReference[oaicite:7]{index=7}
 
-**Hinweis:** Vortrainierte Embedding und Transformer-Modelle sind aufgrund ihrer Grösse nicht im Repositotry enthalten. 
+---
 
+## Reproduzierbarkeit & Hinweise zu API
 
+Die LLM-Abschnitte (Zero-Shot / Few-Shot) werden **nur ausgeführt**, wenn ein gültiger API-Key via Environment Variable vorhanden ist.  
+Ist kein Key gesetzt, werden diese Schritte automatisch übersprungen, sodass das Notebook weiterhin ausführbar bleibt. :contentReference[oaicite:8]{index=8}
 
-## Methodik & Projektphasen 
-
-### Tag 1: Baseline & Projekt-Setup
-- Textrepräsentation mittel TF-IDF
-- Klassifikation mit Logistic Regression
-- Evaluation anhand von:
-  - F1 - Score
-  - Precision & Recall
-  - Confusion Matrix
-Die Baseline liefert eie robuste Ausgangsbasis und ermöglicht einen klaren Referenzpunkt für alle weiteren Modelle.
-
-### Tag 2: Fehleranalyse & Zusatzanalysen 
-- Systematische Analyse von:
-  - False Positives
-  - False Negatives
-- Untersuchung konkreter Tweet-Beispiele
-- Zusatzanalyse: Textlänge vs. Modellperformance
-Die Ergebnisse zeigen, dass Modellfehler nicht durch einfach strukturelle Merkmale erklärbar sind, sondern primär durch fehlendes semantisches Kontextverständnid entstehen
-
-## Tag 3: Klassische Deep Leaerning (Bi-LSTM + GloVe)
-- Tokenisierung und Padding der Texte
-- Verwendung vortrainierter GloVe-Embeddings (100 Dimensionen)
-- Einsatz eines bidirektionalen LSTM-Netzwerkes
-- Vergleich der Performance mit der TF-IDF-Baseline
-Das Bi-LSTM-Modell verbessert insbesondere die Erkennung kontextabhängiger Formulierungen, geht jedoch mit höher Rechenkomplexität einher.
-
-## Tag 4: Transformer-Ansatz (DistilBERT / BERTweet)
-- Einsatz ein Transformer-Modells als Stats-Of_........
-- FERTIG MACHEN WENN TAG 4 GEMACHT IST!!!!!!
-
-
-
-## GloVe Embeddings
-
-Für das Bi-LSTM-Modell werden vortrainierte GloVe-Embeddings verwendet: 
-- **Quelle:** Stanford NLP
-- **Version:** 'glove.6B.100d.txt'
-
-Download: 
-https://nlp.stanford.edu/projects/glove
-
-Ablagepfad:
-data/glove/glove.6B.100d.txt
-
-
-
-## Fazit
-
-odINVJoi gjihj oihf ijh adf uz d  hwdg f
-
-
-
-## Autorin 
-
-Annabelle McPherson
-BSc Data Science / AI Project
-Hochschule Luzern
+### API-Key setzen (lokal, nicht im Repo!)
+```bash
+export OPENAI_API_KEY="YOUR_KEY_HERE"
