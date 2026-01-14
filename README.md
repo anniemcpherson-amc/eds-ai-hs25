@@ -1,7 +1,9 @@
 # Natural Language Processing with Disaster Tweets (Kaggle)
 
 **EDS – AI HS25 Project (HSLU)**  
-Autorin: **Annabelle McPherson**
+Autorin: **Annabelle McPherson**  
+Relevanter Notebook: **disater_tweets**
+
 
 Dieses Projekt beschäftigt sich mit der automatischen Klassifikation von Tweets in Bezug auf reale Katastrophenereignisse. Ziel ist es, vorherzusagen, ob ein Tweet tatsächlich eine **reale Katastrophe** beschreibt (`target = 1`) oder ob katastrophenbezogene Begriffe **metaphorisch / im übertragenen Sinn** verwendet werden (`target = 0`).  
 Die Arbeit orientiert sich an der Kaggle-Challenge **“Natural Language Processing with Disaster Tweets”**. :contentReference[oaicite:1]{index=1}
